@@ -6,6 +6,7 @@ class Task{
     public string $created_at;
     public string $finished_at;
     public TaskStatus $status;
+    public string $created_by;
 
     //metodo Constructor
     public function __construct(){}
