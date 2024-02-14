@@ -15,4 +15,6 @@ $routes = array(
 	'/delete_task' => 'task#delete_task',
 	'/update_task' => 'task#update_task',
 	'/read_task' => 'task#read_task'
+	'/tasks' => 'ReadTaskController#readTask'
+	//queda pendiente ruta de ver detalle de tarea especifica '/list_specific_task' => 'task#list_specific_task'
 );
