@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__ . '../../lib/base/model.php'); 
-require_once(__DIR__ . '../../enum/enum_status.php'); 
+require_once(__DIR__ . '/../../lib/base/model.php'); 
+require_once(__DIR__ . '/../../enum/enum_status.php'); 
 
 //llamamos al archivo model.php dentro de base para implementar metodos de este archivo
 
@@ -12,7 +12,7 @@ class TaskModel extends Model{
     protected string $createdBy;
     protected string $creationDate;
     protected string $deadline;
-    protected TaskStatus $taskEstatus;
+    protected TaskStatus $taskStatus;
 
 
     //metodo Constructor
@@ -33,38 +33,38 @@ class TaskModel extends Model{
         $this->taskId = $taskId;
     }
    
-    public function getTaskName(){
+    public function getTaskName(): string{
         return $this->taskName;
     }
     public function setTaskName(string $taskName){
         $this->taskName = $taskName;
     }
 
-    public function getCreationDate(){
+    public function getCreationDate(): string{
         return $this->creationDate;
     }
     public function setCreationDate($creationDate){
         $this->creationDate = $creationDate;
     }
 
-    public function getDeadline(){
+    public function getDeadline(): string{
         return $this->deadline;
     }
     public function setDeadline($deadline){
         $this->deadline = $deadline;
     }
 
-    public function getTaskStatus(){
+    public function getTaskStatus(): TaskStatus{
         return $this->taskStatus;
     }
-    public function setTaskStatus($taskStatus){
+    public function setTaskStatus(TaskStatus $taskStatus){
         $this->taskStatus = $taskStatus;
     }
 
     //metodo crear tarea
     public function createTask($newTask){
         //primero convertir json en array (load data)
-        $arrayTasks= $this->loadData();
+        $arrayTasks = $this->loadData();
         $arrayTasks[]= $newTask; //agrego la nueva tarea
         $this->saveData($arrayTasks);       
     }
@@ -77,7 +77,7 @@ class TaskModel extends Model{
                 return $task; // Se devuelve la tarea encontrada
             }
         }
-        return null; //En caso contrario, se devuelve null
+        return "Impossible to find task id."; //En caso contrario se devuelve mensaje
     }
     //Metodo SaveTask
     public function save($task){
