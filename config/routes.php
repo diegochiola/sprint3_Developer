@@ -10,11 +10,10 @@
  * '/calendar' => 'calendar#index'
  */
 $routes = array(
-	'/' => 'task#index',
-	'/create_task' => 'task#create_task',
-	'/delete_task' => 'task#delete_task',
-	'/update_task' => 'task#update_task',
-	'/read_task' => 'task#read_task',
-	'/tasks' => 'ReadTaskController#readTask'
-	//queda pendiente ruta de ver detalle de tarea especifica '/list_specific_task' => 'task#list_specific_task'
+    '/' => 'task#index', // Ruta a página de inicio de tareas
+    '/create_task' => 'task#create_task', // Ruta crear una nueva tarea
+    '/delete_task' => 'task#delete_task', // Ruta para eliminar una tarea
+    '/update_task' => 'task#update_task', // Ruta para actualizar una tarea
+    '/read_task' => 'task#read_task' // Ruta para leer una tarea
+    
 );

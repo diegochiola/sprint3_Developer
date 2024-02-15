@@ -66,8 +66,7 @@ class ToDoModel extends Model{
         }
     }
    
-    public function updateTask(array $updatedTask)
-    {
+    public function updateTask(array $updatedTask){
         $arrayTasks = $this->loadData();
         $found = false;
         $longArray = count($arrayTasks);
