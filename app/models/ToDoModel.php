@@ -61,10 +61,27 @@ class ToDoModel extends Model{
         }
         if (!$found) {
             return "Impossible to find task id.";//En caso contrario se devuelve mensaje
+        } else {
+            return true; // Se encontró y eliminó la tarea, devolvemos true
         }
-        
     }
    
+    public function updateTask(array $updatedTask)
+    {
+        $arrayTasks = $this->loadData();
+        $found = false;
+        $longArray = count($arrayTasks);
+        $i=0;
+        while($found==false && $i<$longArray){
+            if($arrayTasks[$i]["taskId"]==$updatedTask["taskId"]){   
+                $arrayTasks[$i] = array_merge($arrayTasks[$i], $updatedTask); //atualizacion del array
+                $found = true;//cuando encuentre la tarea se pasa a true
+            }
+            $i++;
+        }
+            $this->saveData($arrayTasks); //se guarda la actualizacion
+    }
+
     //Metodos para codificar el archivo json actualizado
     private function saveData($data) { 
         file_put_contents(__DIR__ . '/db/task.json', json_encode($data, JSON_PRETTY_PRINT)); //Se pasa del array al json 
