@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO LIST - Task List</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body style="background-color: #bbbbf5;">
+
+<main class="container mx-auto mt-10 lg:mt-20">
+    <div class="max-w-full mx-auto">
+          
+    <!-- Boton para volver al index -->
+        <div class="text-left mb-6">
+            <a href="index.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline " style="background-color:#282854;">Home</a>    
+        </div>
+
+        <div class="bg-gray-100 shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4">
+            <h1 class="text-center text-2xl font-bold mb-4" style="color: #141439;">Task List</h1>
+           
+            <div class="mb-6">
+            <form action="insertTask" method="post">
+            <table class="min-w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="px-4 py-2">Id</th>
+                                <th class="px-4 py-2">Task</th>
+                                <th class="px-4 py-2">Status</th>
+                                <th class="px-4 py-2">Starts at</th>
+                                <th class="px-4 py-2">Deadline</th>
+                                <th class="px-4 py-2">Created by</th>
+                                <th class="px-4 py-2"></th>
+                                <th class="px-4 py-2"></th>
+                                
+                            </tr>
+                        </thead>
+
+
+                         <!-- Mostrar datos -->
+                        <tbody>
+                        <?php
+                        $ApplicationController = new ApplicationController();
+                        $arrayTasks = $ApplicationControllerr->tasksListAction();
+                        if ($arrayTasks !== null) :
+                            foreach ($arrayTasks as $task) : ?>
+                            <tr>
+                                <td class="text-center"><?php echo $task['id']; ?></td>
+                                <td class="text-center"><?php echo $task['task']; ?></td>
+                                <td class="text-center"><?php echo $task['status']; ?></td>
+                                <td class="text-center"><?php echo $task['starts_at']; ?></td>
+                                <td class="text-center"><?php echo $task['deadline']; ?></td>
+                                <td class="text-center"><?php echo $task['created_by']; ?></td>
+                                
+                                 <!-- Botones Update y  Delete -->  
+                                <td class="py-2 px-4 text-right">
+                                    <a href="UpdateTask.phtml">
+                                        <button class="bg-green-400 text-white px-4 py-2 rounded-full hover:bg-green-300">Update</button>
+                                    </a>
+                                    <a href="deleteTask?taskId=<?php echo $task['id']; ?>&taskName=<?php echo $task['task']; ?>" onclick="return confirmDelete('<?php echo $task['task']; ?>');">
+                                        <button class="bg-red-400 text-white px-8 py-2 rounded-full hover:bg-red-300">Delete</button>
+                                    </a>
+                                
+                                </td>
+                            </tr>
+                        <?php endforeach;
+                        endif; ?>
+                    </table>
+                </form>
+                </div>
+             <!-- Creadores -->
+            </div>
+            <div class="text-muted text-center mt-4 text-xs" style="color: #141439;">Thank you for using this app created by Gonzalo and Diega.</div>
+        </div>
+    </div>
+</main>
+ <!-- Pop up confirmacion de Delete y update -->
+ <script>
+    function confirmDelete(taskname) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this task: " + taskname,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                return true;
+            } else {
+                // Si el usuario cancela la eliminación, no realizamos ninguna acción
+                return false;
+            }
+        });
+    }
+                             
+</script>
+
+</body>
+</html>
