@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TO DO LIST - Task List</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body style="background-color: #bbbbf5;">
 
@@ -38,7 +39,7 @@
                          <!-- Mostrar datos -->
                         <tbody>
                         <?php
-                        $ApplicationController = new ApplicationControllerController();
+                        $ApplicationController = new ApplicationController();
                         $arrayTasks = $ApplicationControllerr->tasksList_ViewAction();
                         if ($arrayTasks !== null) :
                             foreach ($arrayTasks as $task) : ?>
@@ -53,11 +54,39 @@
                                  <!-- Botones Update y  Delete -->  
                                 <td class="py-2 px-4 text-right">
                                     <a href="UpdateTask_View?taskId=<?php echo $task['id']; ?>&user=<?php echo $task['created_by']; ?>&taskName=<?php echo $task['task']; ?>&taskType=<?php echo $task['type']; ?>&creationDate=<?php echo $task['starts_at']; ?>&expectedEndDate=<?php echo $task['deadline']; ?>&taskStatus=<?php echo $task['status']; ?>">
-                                        <input type='button' name='up' id='up' value='Update' class='bg-green-400 text-white px-4 py-2 rounded-full hover:bg-green-300'>
+                                        <button class="bg-green-400 text-white px-4 py-2 rounded-full hover:bg-green-300">Update</button>
                                     </a>
+                                    <script>
+                                        function confirmDelete(taskname) {
+                                            swal({
+                                                title: "Are you sure?",
+                                                text: "Once deleted, you will not be able to recover this task: " + taskname,
+                                                icon: "warning",
+                                                buttons: true,
+                                                dangerMode: true,
+                                            })
+                                            .then((willDelete) => {
+                                                if (willDelete) {
+                                                    // Aquí podrías hacer una redirección a la página de eliminación si el usuario confirma
+                                                    return true;
+                                                } else {
+                                                    // Si el usuario cancela la eliminación, no realizamos ninguna acción
+                                                    return false;
+                                                }
+                                            });
+                                        }
+                                    </script>
                                     <a href="deleteTask?taskId=<?php echo $task['id']; ?>&taskName=<?php echo $task['task']; ?>" onclick="return confirmDelete('<?php echo $task['task']; ?>');">
-                                        <input type='button' name='del' id='del' value='Delete' class='bg-red-400 text-white px-8 py-2 rounded-full hover:bg-red-300'>
+                                        <button class="bg-red-400 text-white px-8 py-2 rounded-full hover:bg-red-300">Delete</button>
                                     </a>
+                                    <script>
+                                        function showSuccess() {
+                                            swal("Successful update!", {
+                                                icon: "success",
+                                            });
+                                            // No necesitas devolver nada, ya que no hay una acción que cancelar
+                                        }
+                                    </script>
                                 </td>
                             </tr>
                         <?php endforeach;
@@ -65,16 +94,19 @@
                     </table>
                 </form>
                 </div>
-            
-                    
-            
-            
-            
+             <!-- Creadores -->
             </div>
             <div class="text-muted text-center mt-4 text-xs" style="color: #141439;">Thank you for using this app created by Gonzalo and Diega.</div>
         </div>
     </div>
 </main>
+    <!-- Pop up confirmacion de Delete -->
+    <script>
+        function confirmDelete(taskname) {
+            return confirm("¿Estás seguro de que deseas borrar la tarea: " + taskname + "?");
+        }
+
+    </script>
 
 </body>
 </html>
