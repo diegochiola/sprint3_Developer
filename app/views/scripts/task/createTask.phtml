@@ -20,32 +20,38 @@
         <div class="bg-gray-100 shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4">
             <h1 class="text-center text-2xl font-bold mb-4" style="color: #141439;">Create New Task</h1>
             
-            <form action="index.php?action=create_task" method="post" class="w-full max-w-md mx-auto">
+            <form action="/index.php?action=create_task" method="post" class="w-full max-w-md mx-auto">
                 <input type="hidden" name="task_id" value="1">  
+                <!-- Campo Task -->
                 <div class="mb-4">
                     <label for="task" class="block text-gray-700 text-sm font-bold mb-2">Task:</label>
-                    <input type="text" name="title" placeholder="Task Name:" class="border rounded-md p-2 w-full">
+                    <input type="text" name="title" placeholder="Task Name:" class="border rounded-md p-2 w-full" required>
                 </div>
+                <!-- Campo Status -->
                 <div class="mb-4">
                     <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Task Status:</label>
-                    <select name="status" id="status" class="form-select rounded-md shadow-sm p-2 w-full">
+                    <select name="status" id="status" class="form-select rounded-md shadow-sm p-2 w-full" required>
                         <option value="TO_DO">To do</option>
                         <option value="IN_PROGRESS">In progress</option>
                         <option value="DONE">Done</option>
                     </select>
                 </div>
+                <!-- Campo Starts at -->
                 <div class="mb-4">
                     <label for="starts_at" class="block text-gray-700 text-sm font-bold mb-2">Starts at:</label>
-                    <input type="datetime-local" name="starts_at" id="starts_at" class="form-input rounded-md shadow-sm p-2 w-full">
+                    <input type="datetime-local" name="starts_at" id="starts_at" class="form-input rounded-md shadow-sm p-2 w-full" required>
                 </div>
+                <!-- Campo Deadline -->
                 <div class="mb-4">
-                    <label for="ends_at" class="block text-gray-700 text-sm font-bold mb-2">Ends at:</label>
-                    <input type="datetime-local" name="ends_at" id="ends_at" class="form-input rounded-md shadow-sm p-2 w-full">
+                    <label for="deadline" class="block text-gray-700 text-sm font-bold mb-2">Deadline:</label>
+                    <input type="datetime-local" name="deadline" id="deadline" class="form-input rounded-md shadow-sm p-2 w-full" required>
                 </div>
+                <!-- Campo Created By -->
                 <div class="mb-4">
                     <label for="create_by_user" class="block text-gray-700 text-sm font-bold mb-2">Created by:</label>
                     <input type="text" name="create_by_user" id="create_by_user" class="border rounded-md p-2 w-full">
                 </div>
+                <!-- Submit -->
                 <div class="mb-6 text-center">
                     <button type="submit" name="submit" id="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" value="Create Task">Submit</button>   
                 </div>
