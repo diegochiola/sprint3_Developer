@@ -1,5 +1,6 @@
 <?php
-
+require_once('app/controllers/ReadTaskController.php');
+require_once('app/controllers/ErrorController.php');
 /**
  * Used for setting up the routing in the system
  */
@@ -24,7 +25,7 @@ class Router
 				// tries to find the a matching "parameter route"
 				$routeFound = $this->_getParameterRoute($routes, $controller, $action);
 			}
-			
+			$routes['/tasks'] = 'ReadTaskController#readTask'; //ruta de ReadTaskController
 			// no route found, throw an exception to run the error controller
 			if (!$routeFound || $controller == null || $action == null) {
 				throw new Exception('no route added for ' . $_SERVER['REQUEST_URI']);

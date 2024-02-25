@@ -10,5 +10,10 @@
  * '/calendar' => 'calendar#index'
  */
 $routes = array(
-	'/test' => 'test#index'
+    '/' => 'task#index', // Ruta a página de inicio de tareas
+    '/create_task' => 'task#create_task', // Ruta crear una nueva tarea
+    '/delete_task' => 'task#delete_task', // Ruta para eliminar una tarea
+    '/update_task' => 'task#update_task', // Ruta para actualizar una tarea
+    '/read_task' => 'task#read_task' // Ruta para leer una tarea
+    
 );

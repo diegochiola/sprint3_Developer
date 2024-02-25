@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Task</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body style="background-color: #bbbbf5;">
+
+<main class="container mx-auto mt-10 lg:mt-20">
+    <div class="max-w-full mx-auto">
+          
+        <!-- Boton para volver al tasksList -->
+        <div class="text-left mb-6">
+            <a href="tasksList.phtml" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline " style="background-color:#282854;">Tasks List</a>    
+        </div>
+        <!-- formulario update tasksList -->
+        <div class="bg-gray-100 shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4">
+            <h1 class="text-center text-2xl font-bold mb-4" style="color: #141439;">Update Task</h1>
+            
+            <?php
+            $applicationController = new ApplicationController();
+            $tasksFound = $applicationController->updateTaskView();
+            ?>  
+
+            <form action="index.php?action=update_task" method="post" class="w-full max-w-md mx-auto">
+                <input type="hidden" name="task_id" value="<?php echo $tasksFound['id']; ?>">  
+                <div class="mb-4">
+                    <label for="task" class="block text-gray-700 text-sm font-bold mb-2">Task:</label>
+                    <input type="text" name="title" placeholder="Task Name:" class="border rounded-md p-2 w-full" value="<?php echo $tasksFound['task']; ?>" required>
+                </div>
+                <div class="mb-4">
+                    <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Task Status:</label>
+                    <select name="status" id="status" class="form-select rounded-md shadow-sm p-2 w-full" required>
+                        <option value="TO_DO" <?php if ($tasksFound['status'] == 'TO_DO') echo 'selected'; ?>>To do</option>
+                        <option value="IN_PROGRESS" <?php if ($tasksFound['status'] == 'IN_PROGRESS') echo 'selected'; ?>>In progress</option>
+                        <option value="DONE" <?php if ($tasksFound['status'] == 'DONE') echo 'selected'; ?>>Done</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="starts_at" class="block text-gray-700 text-sm font-bold mb-2">Starts at:</label>
+                    <input type="datetime-local" name="starts_at" id="starts_at" class="form-input rounded-md shadow-sm p-2 w-full" value="<?php echo date('Y-m-d\TH:i', strtotime($tasksFound['starts_at'])); ?>" required>
+                </div>
+                <div class="mb-4">
+                    <label for="ends_at" class="block text-gray-700 text-sm font-bold mb-2">Ends at:</label>
+                    <input type="datetime-local" name="ends_at" id="ends_at" class="form-input rounded-md shadow-sm p-2 w-full" value="<?php echo date('Y-m-d\TH:i', strtotime($tasksFound['ends_at'])); ?>" required>
+                </div>
+                <div class="mb-4">
+                    <label for="create_by_user" class="block text-gray-700 text-sm font-bold mb-2">Created by:</label>
+                    <input type="text" name="create_by_user" id="create_by_user" class="border rounded-md p-2 w-full" value="<?php echo $tasksFound['created_by']; ?>" required>
+                </div>
+                <div class="mb-6 text-center">
+                    <button type="submit" name="submit" id="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" value="Update Task">Update Task</button>   
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="text-muted text-center mt-4 text-xs">Thank you for using this app created by Gonzalo and Diega.</div>
+
+</main>
+
+</body>
+</html>

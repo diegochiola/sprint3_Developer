@@ -44,15 +44,15 @@ class Model
 	}
 	
 	public function fetchOne($id)
-	{
-		$sql = 'select * from ' . $this->_table;
-		$sql .= ' where id = ?';
-		
-		$statement = $this->_dbh->prepare($sql);
-		$statement->execute(array($id));
-		
-		return $statement->fetch(PDO::FETCH_OBJ);
-	}
+{
+    $sql = 'select * from ' . $this->_table;
+    $sql .= ' where id = ?';
+    
+    $statement = $this->_dbh->prepare($sql);
+    $statement->execute(array($id));
+    
+    return $statement->fetch(PDO::FETCH_ASSOC); //array asociativo
+}
 	
 	/**
 	 * Saves the current data to the database. If an key named "id" is given,
